@@ -65,7 +65,7 @@ class Variable:
     def __repr__(self):
         if self.data is None:
             return 'variable(None)'
-        p = str(self.data).replace( '
+        p = repr(self.data).replace( '
 ', '
 ' + ' ' * 9 )
 
