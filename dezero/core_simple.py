@@ -99,7 +99,7 @@ class Variable:
             if not isinstance(gxs, tuple):
                 gxs = (gxs,)
 
-            for x, gx in zip(f.inputs, gxs):
+            for x, gx in zip(func.inputs, gxs):
                 if x.grad is None:
                     x.grad = gx
                 else:
@@ -109,7 +109,7 @@ class Variable:
                     add_func(x.creator)
 
             if not retain_grad:
-                for y in f.outputs:
+                for y in func.outputs:
                     y().grad = None  # y is weakref
 
 
