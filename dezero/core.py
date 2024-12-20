@@ -30,7 +30,8 @@ def no_grad():
 # =============================================================================
 
 class Variable:
-    __array_priority__ = 200
+    # increase variable instance's priority ex) np.array(1.0)+var1 =>call variable's __radd__ (not ndarray's __add__)
+    __array_priority__ = 200 
 
     def __init__(self, data, name=None):
         if data is not None:
@@ -96,6 +97,7 @@ class Variable:
             func = funcs.pop()
             gys = [output().grad for output in func.outputs]  # output is weakref
 
+            # If create_graph = False: performs a single backpropagation If True: allows multiple backpropagations and higher-order derivatives
             with using_config('enable_backprop', create_graph):
                 gxs = func.backward(*gys)
                 if not isinstance(gxs, tuple):
@@ -110,6 +112,7 @@ class Variable:
                     if x.creator is not None:
                         add_func(x.creator)
 
+            #if retain_grad = False: Do not store the gradients of intermediate variables
             if not retain_grad:
                 for y in func.outputs:
                     y().grad = None  # y is weakref
@@ -167,7 +170,8 @@ class Add(Function):
 
 
 def add(x0, x1):
-    x1 = as_array(x1)
+    #Convert float or int to ndarray and turn it into a variable instance when the function is called."
+    x1 = as_array(x1) 
     return Add()(x0, x1)
 
 
@@ -177,7 +181,7 @@ class Mul(Function):
         return y
 
     def backward(self, gy):
-        x0, x1 = self.inputs[0].data, self.inputs[1].data
+        x0, x1 = self.inputs
         return gy * x1, gy * x0
 
 
