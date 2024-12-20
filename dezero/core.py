@@ -104,6 +104,7 @@ class Variable:
                     gxs = (gxs,)
 
                 for x, gx in zip(func.inputs, gxs):
+                    # For branching operation
                     if x.grad is None:
                         x.grad = gx
                     else:
@@ -140,6 +141,7 @@ class Function:
             ys = (ys,)
         outputs = [Variable(as_array(y)) for y in ys]
 
+        #Disable backprop
         if Config.enable_backprop:
             self.generation = max([x.generation for x in inputs])
             for output in outputs:
@@ -147,6 +149,7 @@ class Function:
             self.inputs = inputs
             self.outputs = [weakref.ref(output) for output in outputs]
 
+        # Return a list or element based on the number of items
         return outputs if len(outputs) > 1 else outputs[0]
 
     def forward(self, xs):
@@ -262,7 +265,7 @@ class Pow(Function):
 def pow(x, c):
     return Pow(c)(x)
 
-
+#Define operations for the Variable object
 def setup_variable():
     Variable.__add__ = add
     Variable.__radd__ = add
