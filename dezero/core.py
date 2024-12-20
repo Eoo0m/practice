@@ -96,7 +96,7 @@ class Variable:
             func = funcs.pop()
             gys = [output().grad for output in func.outputs]  # output is weakref
 
-            with using_config('enable_backdrop', create_graph):
+            with using_config('enable_backprop', create_graph):
                 gxs = func.backward(*gys)
                 if not isinstance(gxs, tuple):
                     gxs = (gxs,)
