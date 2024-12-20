@@ -31,7 +31,7 @@ def no_grad():
 
 class Variable:
     # increase variable instance's priority ex) np.array(1.0)+var1 =>call variable's __radd__ (not ndarray's __add__)
-    __array_priority__ = 200 
+    __array_priority__ = 200
 
     def __init__(self, data, name=None):
         if data is not None:
@@ -104,7 +104,6 @@ class Variable:
                     gxs = (gxs,)
 
                 for x, gx in zip(func.inputs, gxs):
-                    # For branching operation
                     if x.grad is None:
                         x.grad = gx
                     else:
@@ -141,7 +140,6 @@ class Function:
             ys = (ys,)
         outputs = [Variable(as_array(y)) for y in ys]
 
-        #Disable backprop
         if Config.enable_backprop:
             self.generation = max([x.generation for x in inputs])
             for output in outputs:
@@ -149,7 +147,6 @@ class Function:
             self.inputs = inputs
             self.outputs = [weakref.ref(output) for output in outputs]
 
-        # Return a list or element based on the number of items
         return outputs if len(outputs) > 1 else outputs[0]
 
     def forward(self, xs):
@@ -174,7 +171,7 @@ class Add(Function):
 
 def add(x0, x1):
     #Convert float or int to ndarray and turn it into a variable instance when the function is called."
-    x1 = as_array(x1) 
+    x1 = as_array(x1)
     return Add()(x0, x1)
 
 
@@ -265,7 +262,33 @@ class Pow(Function):
 def pow(x, c):
     return Pow(c)(x)
 
-#Define operations for the Variable object
+class Sin(Function):
+    def forward(self, x):
+        y = np.sin(x)
+        return y
+
+    def backward(self, gy):
+        x, = self.inputs
+        gx = gy * cos(x)
+        return gx
+
+def sin(x):
+    return Sin()(x)
+
+class Cos(Function):
+    def forward(self, x):
+        y = np.cos(x)
+        return y
+    
+    def backward(self, gy):
+        x, = self.inputs
+        gx = gy * -sin(x)
+        return gx
+
+def cos(x):
+    return Cos()(x)
+
+
 def setup_variable():
     Variable.__add__ = add
     Variable.__radd__ = add
