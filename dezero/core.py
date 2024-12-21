@@ -145,7 +145,7 @@ class Function:
             for output in outputs:
                 output.set_creator(self)
             self.inputs = inputs
-            self.outputs = [weakref.ref(output) for output in outputs]
+            self.outputs = [weakref.ref(output) for output in outputs]   #Prevent memory leaks caused by circular references(function.output <-> variable.creator)
 
         return outputs if len(outputs) > 1 else outputs[0]
 
