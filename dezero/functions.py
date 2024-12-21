@@ -62,7 +62,7 @@ class Reshape(Function):
         self.shape = shape
 
     def forward(self, x):
-        self.x_shape = x.shape
+        self.x_shape == x.shape
         y = x.reshape(self.shape)  #x: variable instance, do not use np.reshape
         return y
 
