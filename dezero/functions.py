@@ -70,7 +70,7 @@ class Reshape(Function):
         return reshape(gy,self.x_shape)
 
 def reshape(x,shape):
-    if x.shape = shape:
+    if x.shape == shape:
         return as_variable(x)
     return Reshape(shape)(x)
 
@@ -91,7 +91,7 @@ class Sum(Function):
         self.x_shape = x.shape
         y = x.sum()
         return y
-    
+
     def backward(self, gy):
         gx = broadcast_to(gy, self.x_shape)
         return gx
