@@ -3,6 +3,9 @@
 <h2>dezero </h2>
 
 
+<h3>__init__.py</h3>
+
+
 <h3>core.py</h3>
 
 
@@ -22,3 +25,7 @@
 -generation
 
 
+<h3>functions.py</h3>
+
+
+<h3>utils.py</h3>
