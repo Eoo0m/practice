@@ -87,12 +87,17 @@ def transpose(x):
     return Transpose()(x)
 
 class Sum(Function):
+    def __init__(self, axis ,keepdims):
+        self.axis = axis
+        self.keepdims = keepdims
+
     def forward(self, x):
         self.x_shape = x.shape
-        y = x.sum()
+        y = x.sum(axis = self.axis, keepdims = self.keepdims)
         return y
 
     def backward(self, gy):
+        gy = utils.reshape_sum_backward(gy, self.x_shape, self.axis, self.keepdims)
         gx = broadcast_to(gy, self.x_shape)
         return gx
 
@@ -106,7 +111,6 @@ class BroadcastTo(Function):
 
     def forward(self, x):
         self.x_shape = x.shape
-        xp = dezero.cuda.get_array_module(x)
         y = xp.broadcast_to(x, self.shape)
         return y
 
@@ -119,4 +123,22 @@ def broadcast_to(x, shape):
     if x.shape == shape:
         return as_variable(x)
     return BroadcastTo(shape)(x)
+
+class SumTo(Function):
+    def __init__(self, shape):
+        self.shape = shape
+
+    def forward(self, x):
+        self.x_shape = x.shape
+        y = utils.sum_to(x, self.shape) # for ndarray
+        return y
+
+    def backward(self, gy):
+        gx = broadcast_to(gy, self.x_shape)
+        return gx
+    
+def sum_to(x, shape):
+    if x.shape == shape:
+        return as_variable(x)
+    return SumTo(shape)(x)
 
