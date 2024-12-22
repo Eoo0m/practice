@@ -2,6 +2,8 @@
 import weakref
 import numpy as np
 import contextlib
+import dezero
+
 
 
 # =============================================================================
@@ -177,7 +179,7 @@ class Function:
 
 class Add(Function):
     def forward(self, x0, x1):
-        self.x0_shape, self.x1_shape = x0.shape, x1.shape
+        self.x0_shape, self.x1_shape = x0.shape, x1.shape  #for broadcast
         y = x0 + x1  #automatically broadcast(x: ndarray)
         return y
 
@@ -185,7 +187,7 @@ class Add(Function):
         gx0, gx1 = gy, gy
         if self.x0_shape != self.x1_shape:
             gx0 = dezero.functions.sumto(gx0, self.x0_shape)
-            gx1 = dezero.functions.sumto(gx1, self.x1_shape) 
+            gx1 = dezero.functions.sumto(gx1, self.x1_shape)
         return gx0 , gx1
 
 
