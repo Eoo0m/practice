@@ -1,9 +1,9 @@
 <h1>밑바닥부터 시작하는 딥러닝 3</h1>
 
-*#dezero*
+<h2>dezero </h2>
 
 
--core.py
+<h3>-core.py</h3>
 
 
 ##Config
