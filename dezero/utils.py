@@ -1,4 +1,8 @@
 
+import numpy as np
+from dezero import as_variable
+from dezero import Variable
+
 # =============================================================================
 # Visualize for computational graph
 # =============================================================================

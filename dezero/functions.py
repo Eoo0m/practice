@@ -104,20 +104,19 @@ class Sum(Function):
 def sum(x):
     return Sum()(x)
 
-
+# sumto <-> broadcastto
 class BroadcastTo(Function):
     def __init__(self, shape):
         self.shape = shape
 
     def forward(self, x):
         self.x_shape = x.shape
-        y = xp.broadcast_to(x, self.shape)
+        y = xp.broadcast_to(x, self.shape)  # x: ndarray
         return y
 
     def backward(self, gy):
         gx = sum_to(gy, self.x_shape)
         return gx
-
 
 def broadcast_to(x, shape):
     if x.shape == shape:
