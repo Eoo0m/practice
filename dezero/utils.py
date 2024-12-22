@@ -7,8 +7,7 @@ from dezero import Variable
 # Visualize for computational graph
 # =============================================================================
 def _dot_var(v, verbose=False):
-    dot_var = '{} [label="{}", color=orange, style=filled]
-'
+    dot_var = '{} [label="{}", color=orange, style=filled]'
 
     name = '' if v.name is None else v.name
     if verbose and v.data is not None:
@@ -21,13 +20,11 @@ def _dot_var(v, verbose=False):
 
 def _dot_func(f):
     # for function
-    dot_func = '{} [label="{}", color=lightblue, style=filled, shape=box]
-'
+    dot_func = '{} [label="{}", color=lightblue, style=filled, shape=box]'
     ret = dot_func.format(id(f), f.__class__.__name__)
 
     # for edge
-    dot_edge = '{} -> {}
-'
+    dot_edge = '{} -> {}'
     for x in f.inputs:
         ret += dot_edge.format(id(x), id(f))
     for y in f.outputs:  # y is weakref
@@ -74,8 +71,7 @@ def get_dot_graph(output, verbose=True):
             if x.creator is not None:
                 add_func(x.creator)
 
-    return 'digraph g {
-' + txt + '}'
+    return 'digraph g {' + txt + '}'
 
 
 def plot_dot_graph(output, verbose=True, to_file='graph.png'):
