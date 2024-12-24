@@ -1,7 +1,7 @@
 <h1>밑바닥부터 시작하는 딥러닝 3</h1>
 
 <h2>dezero </h2>
-
+클래스 import.
 
 <h3>__init__.py</h3>
 
@@ -33,6 +33,8 @@ retaingrad: 말단 변수외에는 grad저장하지 않음.
 create_graph: grad 변수에 대해서도 grad 기록하여 고차 미분 가능하게함.
 
 -creator: 변수를 출력한 함수.
+
+setup_variable(): 연산자 오버로드
 
 #Function
 
