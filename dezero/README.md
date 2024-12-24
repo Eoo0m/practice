@@ -17,7 +17,7 @@
 
 
 
-![forward and backward](./dezero/image.png)
+![forward and backward](./image.png)
 
 #Variable
 
