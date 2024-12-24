@@ -19,6 +19,9 @@
 
 ![forward and backward](./image.png)
 
+순전파 
+<span style="color: red;">역전파</span>
+
 #Variable
 
 -data: nd.array타입
