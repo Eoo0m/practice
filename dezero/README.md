@@ -1,10 +1,6 @@
 <h1>밑바닥부터 시작하는 딥러닝 3</h1>
 
 <h2>dezero </h2>
-클래스 import.
-
-<h3>__init__.py</h3>
-
 
 <h3>core.py</h3>
 
