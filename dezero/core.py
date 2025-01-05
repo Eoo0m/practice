@@ -186,8 +186,8 @@ class Add(Function):
     def backward(self, gy):
         gx0, gx1 = gy, gy
         if self.x0_shape != self.x1_shape:
-            gx0 = dezero.functions.sumto(gx0, self.x0_shape)
-            gx1 = dezero.functions.sumto(gx1, self.x1_shape)
+            gx0 = dezero.functions.sum_to(gx0, self.x0_shape)
+            gx1 = dezero.functions.sum_to(gx1, self.x1_shape)
         return gx0 , gx1
 
 
