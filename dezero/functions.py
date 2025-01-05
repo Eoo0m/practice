@@ -105,13 +105,14 @@ def sum(x):
     return Sum()(x)
 
 # sumto <-> broadcastto
+# np.broadcast's variable class version
 class BroadcastTo(Function):
     def __init__(self, shape):
         self.shape = shape
 
     def forward(self, x):
         self.x_shape = x.shape
-        y = xp.broadcast_to(x, self.shape)  # x: ndarray
+        y = np.broadcast_to(x, self.shape)  # x: ndarray
         return y
 
     def backward(self, gy):
@@ -123,6 +124,9 @@ def broadcast_to(x, shape):
         return as_variable(x)
     return BroadcastTo(shape)(x)
 
+
+#for Add class's backward
+#np.sumto in utils.py
 class SumTo(Function):
     def __init__(self, shape):
         self.shape = shape
@@ -154,6 +158,6 @@ class MatMul(Function):
 
 def matmul(x, W):
     return MatMul()(x,W)
-    
+
 
 
