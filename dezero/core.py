@@ -6,8 +6,9 @@ import dezero
 
 
 
+# =============================================================================
 # Config
-
+# =============================================================================
 class Config:
     enable_backprop = True
 
@@ -26,8 +27,9 @@ def no_grad():
     return using_config('enable_backprop', False)
 
 
+# =============================================================================
 # Variable / Function
-
+# =============================================================================
 
 class Variable:
     # increase variable instance's priority ex) np.array(1.0)+var1 =>call variable's __radd__ (not ndarray's __add__)
@@ -171,7 +173,9 @@ class Function:
         raise NotImplementedError()
 
 
+# =============================================================================
 # 사칙연산 / 연산자 오버로드
+# =============================================================================
 
 class Add(Function):
     def forward(self, x0, x1):
