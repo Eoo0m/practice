@@ -101,9 +101,10 @@ class Sum(Function):
         gx = broadcast_to(gy, self.x_shape)
         return gx
 
-def sum(x):
-    return Sum()(x)
 
+def sum(x, axis=None, keepdims=False):
+    return Sum(axis, keepdims)(x)
+    
 # sumto <-> broadcastto
 # np.broadcast's variable class version
 class BroadcastTo(Function):
