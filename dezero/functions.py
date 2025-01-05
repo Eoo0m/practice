@@ -1,6 +1,7 @@
 
 import numpy as np
 import dezero
+from dezero import cuda, utils
 from dezero.core import Function, Variable, as_variable, as_array
 
 class Sin(Function):
@@ -104,7 +105,7 @@ class Sum(Function):
 
 def sum(x, axis=None, keepdims=False):
     return Sum(axis, keepdims)(x)
-    
+
 # sumto <-> broadcastto
 # np.broadcast's variable class version
 class BroadcastTo(Function):
