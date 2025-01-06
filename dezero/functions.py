@@ -198,11 +198,11 @@ def linear(x, W, b=None):
     return Linear()(x, W, b)
 
 
-class linear_simple(x, W, b = None):
+def linear_simple(x, W, b = None):
     t = matmul(x, W)
     if b is None:
         return t
-        
+
     y = t + b
     t.data = None                #memory saving(t is not needed for backprop)
     return y
