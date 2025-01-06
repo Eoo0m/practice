@@ -202,7 +202,7 @@ class linear_simple(x, W, b = None):
     t = matmul(x, W)
     if b is None:
         return t
-
+        
     y = t + b
     t.data = None                #memory saving(t is not needed for backprop)
     return y
