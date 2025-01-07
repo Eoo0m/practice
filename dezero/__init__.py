@@ -8,6 +8,7 @@ from dezero.core import as_variable
 from dezero.core import setup_variable
 from dezero.core import Parameter
 from dezero.layers import Layer
+from dezero.models import Model
 import dezero.utils
 import dezero.functions
 
