@@ -1,7 +1,7 @@
 
 import numpy as np
 import dezero
-from dezero import utils
+from dezero import cuda, utils
 from dezero.core import Function, Variable, as_variable, as_array
 
 class Sin(Function):
@@ -178,7 +178,7 @@ class MeanSquaredError(Function):
 
 
 #affine transformation
-# former:x,W,b -Linear-> y   latter:x,W -matmul->t,b-add->y 
+# former:x,W,b -Linear-> y   latter:x,W -matmul->t,b-add->y
 class Linear(Function):
     def forward(self, x, W, b):
         y = x.dot(W)
@@ -236,7 +236,7 @@ def sigmoid_simple(x):
     x = as_variable(x)
     y = 1 / (1 + exp(-x))
     return y
-    
+
 
 # =============================================================================
 # loss function: mean_squared_error / softmax_cross_entropy / sigmoid_cross_entropy / binary_cross_entropy
