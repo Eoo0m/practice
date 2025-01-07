@@ -51,7 +51,7 @@ class Linear(Layer):
     
     def _init_W(self):
         I, O = self.in_size, self.out_size
-        W_data = np.radom.randn(I, O).astype(self.dtype) * np.sqrt(1/I)
+        W_data = np.random.randn(I, O).astype(self.dtype) * np.sqrt(1/I)
         self.W.data = W_data
 
     def forward(self, x):
