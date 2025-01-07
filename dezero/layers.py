@@ -29,7 +29,7 @@ class Layer:
 
     def params(self):
         for name in self._params:
-            obj = self._dict__[name]
+            obj = self.__dict__[name]
             if isinstance(obj, Layer):
                 yield from obj.params()
             else:
