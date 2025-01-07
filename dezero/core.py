@@ -153,7 +153,7 @@ class Function:
 
         xs = [x.data for x in inputs]
         ys = self.forward(*xs)
-        if not isinstance(ys, tuple):
+        if not isinstance(ys, tuple):       #when single value: make tuple
             ys = (ys,)
         outputs = [Variable(as_array(y)) for y in ys]
 
@@ -171,6 +171,10 @@ class Function:
 
     def backward(self, gys):
         raise NotImplementedError()
+
+
+class Parameter(Variable):
+    pass
 
 
 # =============================================================================
